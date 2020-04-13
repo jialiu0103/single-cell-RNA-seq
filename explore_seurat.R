@@ -64,3 +64,9 @@ DimPlot(cells, reduction = "umap", label = TRUE, pt.size = 0.5) + NoLegend()
 #bp + legend(name="cell types",labels=c("Alpha", "Beta", "Delta",'Gamma','Epsilon',
 #                                  'Acinar','Ductal','Quiescent','Activated','Endothelial',
 #                                 'Macrophage','Mast','Cytotoxic','Schwann'))
+
+
+#heatmap mark genes
+library(dplyr)
+top1 <- cells.markers %>% group_by(cluster) %>% top_n(n = 1, wt=avg_logFC)
+DoHeatmap(cells, features = top1$gene)
